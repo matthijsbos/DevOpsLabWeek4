@@ -1,4 +1,4 @@
-<?php include "../inc/dbinfo.inc"; ?>
+<?php include "../inc/dbinfo.php"; ?>
 <html>
 <body>
 <h1>Title: <?php echo SERVER_NAME; ?></h1>
