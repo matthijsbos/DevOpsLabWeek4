@@ -1,7 +1,7 @@
 <?php include "../inc/dbinfo.inc"; ?>
 <html>
 <body>
-<h1>Sample page</h1>
+<h1>Title: <?php echo SERVER_NAME; ?></h1>
 
 <?php
 	/* Connect to MySQL and select the database. */
