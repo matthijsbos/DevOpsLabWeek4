@@ -375,7 +375,7 @@
               }
             },
             "sources" : {
-              "/var/www/html" : "https://raw.githubusercontent.com/matthijsbos/DevOpsLabWeek4/master/html/SampleLampPage.php"
+              "/var/www/html" : "https://raw.githubusercontent.com/matthijsbos/DevOpsLabWeek4/master/html.zip"
             },
             "files" : {
               "/var/www/inc/dbinfo.php" : {
