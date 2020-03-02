@@ -269,7 +269,7 @@
     "ALBTargetGroup" : {
       "Type" : "AWS::ElasticLoadBalancingV2::TargetGroup",
       "Properties" : {
-        "HealthCheckPath" : "SampleLampPage.php",  
+        "HealthCheckPath" : "/SampleLampPage.php",  
         "HealthCheckIntervalSeconds" : 10,
         "HealthCheckTimeoutSeconds" : 5,
         "HealthyThresholdCount" : 2,
