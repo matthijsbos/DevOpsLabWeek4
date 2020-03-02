@@ -269,7 +269,7 @@
     "ALBTargetGroup" : {
       "Type" : "AWS::ElasticLoadBalancingV2::TargetGroup",
       "Properties" : {
-        "HealthCheckPath" : "/wordpress/wp-admin/install.php",  
+        "HealthCheckPath" : "SampleLampPage.php",  
         "HealthCheckIntervalSeconds" : 10,
         "HealthCheckTimeoutSeconds" : 5,
         "HealthyThresholdCount" : 2,
@@ -375,27 +375,22 @@
               }
             },
             "sources" : {
-              "/var/www/html" : "http://wordpress.org/latest.tar.gz"
+              "/var/www/html" : "https://raw.githubusercontent.com/matthijsbos/DevOpsLabWeek4/master/html/SampleLampPage.php"
             },
             "files" : {
-              "/tmp/create-wp-config" : {
+              "/var/www/inc/dbinfo.php" : {
                 "content" : { "Fn::Join" : [ "", [
-                  "#!/bin/bash\n",
-                  "cp /var/www/html/wordpress/wp-config-sample.php /var/www/html/wordpress/wp-config.php\n",
-                  "sed -i \"s/'database_name_here'/'",{ "Ref" : "DBName" }, "'/g\" wp-config.php\n",
-                  "sed -i \"s/'username_here'/'",{ "Ref" : "DBUser" }, "'/g\" wp-config.php\n",
-                  "sed -i \"s/'password_here'/'",{ "Ref" : "DBPassword" }, "'/g\" wp-config.php\n",
-                  "sed -i \"s/'localhost'/'",{ "Fn::GetAtt" : [ "DBInstance", "Endpoint.Address" ] }, "'/g\" wp-config.php\n"
+                  "<?php\n",
+                  "define('SERVER_NAME', 'TODO');\n",
+                  "define('DB_SERVER', '",{ "Fn::GetAtt" : [ "DBInstance", "Endpoint.Address" ] }, "');\n",
+                  "define('DB_USERNAME', '",{ "Ref" : "DBUser" }, "');\n",
+                  "define('DB_PASSWORD', '",{ "Ref" : "DBPassword" }, "');\n",
+                  "define('DB_DATABASE', '",{ "Ref" : "DBName" }, "');\n",
+                  "?>\n"
                 ]]},
                 "mode" : "000500",
                 "owner" : "root",
                 "group" : "root"
-              }
-            },
-            "commands" : {
-              "01_configure_wordpress" : {
-                "command" : "/tmp/create-wp-config",
-                "cwd" : "/var/www/html/wordpress"
               }
             },
             "services" : {
@@ -461,8 +456,8 @@
 
   "Outputs" : {
     "WebsiteURL" : {
-      "Value" : { "Fn::Join" : ["", ["http://", { "Fn::GetAtt" : [ "ApplicationLoadBalancer", "DNSName" ]}, "/wordpress" ]]},
-      "Description" : "WordPress Website"
+      "Value" : { "Fn::Join" : ["", ["http://", { "Fn::GetAtt" : [ "ApplicationLoadBalancer", "DNSName" ]}, "/SampleLampPage.php" ]]},
+      "Description" : "Website"
     }
   }
 }
